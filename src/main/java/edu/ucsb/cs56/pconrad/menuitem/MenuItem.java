@@ -14,7 +14,6 @@ public class MenuItem {
     public static class TooNarrowException extends RuntimeException {
     }
 
-
     public MenuItem(String name, int priceInCents, String category) {
         // stub
     }
@@ -39,6 +38,18 @@ public class MenuItem {
      */
 
     public String getPrice(int width) {
+        return "stub";
+    }
+
+    public int getPriceInCents() {
+        return 0;
+    }
+
+    public String getCategory() {
+        return "stub";
+    }
+
+    public String getName() {
         return "stub";
     }
 

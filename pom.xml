@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <!-- (0) <modelVersion/> -->
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- (1) <parent/> -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.6.2</version>
+  </parent>
+
+  <!-- (2) <groupId/> -->
+  <groupId>edu.ucsb.cs156.spring</groupId>
+
+  <!-- (3) <artifactId/> -->
+
+  <artifactId>hello</artifactId>
+
+  <!-- (4) <version/> -->
+  <version>1.1.0</version>
+
+  <!-- (5) <packaging/> -->
+  <!-- (6) <name/> -->
+  <!-- (7) <description/> -->
+
+  <description>Demonstration of Spring Boot (Hello World)</description>
+
+  <!-- (8) <url/> -->
+  <!-- (9) <inceptionYear/> -->
+  <!-- (10) <organization/> -->
+  <!-- (11) <licenses/> -->
+  <!-- (12) <developers/> -->
+  <!-- (13) <contributors/> -->
+  <!-- (14) <mailingLists/> -->
+  <!-- (15) <prerequisites/> -->
+  <!-- (16) <modules/> -->
+  <!-- (17) <scm/> -->
+  <!-- (18) <issueManagement/> -->
+  <!-- (19) <ciManagement/> -->
+  <!-- (20) <distributionManagement/> -->
+  <!-- (21) <properties/> -->
+
+  <properties>
+    <java.version>17</java.version>
+    <mainClass>edu.ucsb.cs156.spring.hello.Application</mainClass>
+  </properties>
+
+  <!-- (22) <dependencyManagement/> -->
+  <!-- (23) <dependencies/> -->
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <!-- (24) <repositories/> -->
+  <!-- (25) <pluginRepositories/> -->
+  <!-- (26) <build/> -->
+
+  <build>
+    <plugins>
+      <!-- Gives us: mvn spring-boot:run -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <mainClass>${mainClass}</mainClass>
+        </configuration>
+      </plugin>
+
+      <!-- For mvn:package, the jar file is now executable -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <!-- full package name of class with the main you want to run -->
+              <mainClass>${mainClass}</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.7</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
+        <version>1.7.3</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>0.14</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <verbose>true</verbose>
+          <targetClasses>
+            <param>edu.ucsb.cs156.*</param>
+          </targetClasses>
+          <targetTests>
+            <param>edu.ucsb.cs156.*</param>
+          </targetTests>
+          <excludedTestClasses>
+            <param>edu.ucsb.cs156.spring.hello.ApplicationTest</param>
+          </excludedTestClasses>
+          <outputFormats>
+            <outputFormat>HTML</outputFormat>
+            <outputFormat>CSV</outputFormat>
+            <outputFormat>XML</outputFormat>
+          </outputFormats>
+        </configuration>
+      </plugin>
+
+      <!-- needed to get JUnit 5 tests to run -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <!-- JUnit 5 requires Surefire version 2.22.0 or higher -->
+        <version>2.22.0</version>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <!-- (27) <reporting/> -->
+  <!-- (28) <profiles/> -->
+
+</project>
